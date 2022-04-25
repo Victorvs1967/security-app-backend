@@ -1,0 +1,14 @@
+package com.vvs.securityappbackend.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+@AllArgsConstructor
+public class QuestionAndAnswer {
+  
+  private Post question;
+  private Post answer;
+}
