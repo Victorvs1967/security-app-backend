@@ -15,6 +15,7 @@ public class UserRouter {
   @Bean
   public RouterFunction<ServerResponse> userRouterFunction(UserHandler userHandler) {
     return RouterFunctions
-      .route(GET("/rest/api/user").and(accept(APPLICATION_JSON)), userHandler::getUser);
+      .route(GET("/rest/api/user").and(accept(APPLICATION_JSON)), userHandler::getUser)
+      .andRoute(GET("/rest/api/users").and(accept(APPLICATION_JSON)), userHandler::getUsers);
   }
 }

@@ -23,13 +23,20 @@ public class UserHandler {
   
   public Mono<ServerResponse> getUser(ServerRequest request) {
     String token = request.headers().firstHeader("authorization").substring(7);
-    Mono<UserDto> userDto = jwtUtil.getAllClaimsFromToken(token)
-      .flatMap(credentials -> userService.getUser(credentials.getSubject()))
-      .map(userDetails -> userDetails);
-
-    return ServerResponse
+    
+    return jwtUtil.getAllClaimsFromToken(token)
+      .flatMap(credentials -> ServerResponse
       .ok()
       .contentType(APPLICATION_JSON)
-      .body(userDto, UserDto.class);
+      .body(userService.getUser(credentials.getSubject()), UserDto.class));
+  }
+
+  public Mono<ServerResponse> getUsers(ServerRequest request) {
+    String token = request.headers().firstHeader("authorization").substring(7);
+    return jwtUtil.getAllClaimsFromToken(token)
+      .flatMap(credentials -> ServerResponse
+        .ok()
+        .contentType(APPLICATION_JSON)
+        .body(userService.getUsers(), UserDto.class));
   }
 }
