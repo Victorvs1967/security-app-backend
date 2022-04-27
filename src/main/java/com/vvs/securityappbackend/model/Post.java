@@ -13,5 +13,5 @@ public class Post {
   
   private String text;
   private Date date;
-  private String user;
+  private User user;
 }
